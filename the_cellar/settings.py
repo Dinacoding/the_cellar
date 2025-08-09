@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-zl^1!g2)mr)789$#b(wdf3fpzr2#*7nzppa7f^jked3&7$+yh_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -79,6 +79,9 @@ AUTHENTICATION_BACKENDS = [
     # `allauth` specific authentication methods, such as login by email
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
+SITE_ID = 1
+
 
 WSGI_APPLICATION = 'the_cellar.wsgi.application'
 
