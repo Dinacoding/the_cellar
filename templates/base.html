@@ -36,10 +36,65 @@
   <body>
    
     <header class="container-fluid bg-dark text-white fixed-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-4  my-auto py-1 py-lg-0n text-center text-lg-start">
+                    <h1>The Cellar</h1>
+                </div>
+
+                <div class="col-12 col-lg-4  my-auto py-1 py-lg-0">
+                    <form action="" method="get">
+                        <div class="input-group w-100">
+                            <input type="text" class="form-control" placeholder="Search for wines..." name="search">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit">
+                                    <i class="bi bi-search"></i> Search
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-12 col-lg-4  my-auto py-1 py-lg-0">
+                    <ul class="list-inline list-unstyled d-flex justify-content-center justify-content-lg-end mb-0">
+                        <li class="list-inline-item dropdown">
+                            <a href class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div><i class="bi bi-person-circle"></i></div>
+                                <p>Account</p>
+                            </a>
+                            <div class="dropdown-menu border-0 shadow">
+                                {% if user.is_authenticated %}
+                                    {% if request.user.is_superuser %}
+                                        <a class="dropdown-item" href="#">Superuser</a>
+                                    {% endif %}
+                                    <a class="dropdown-item" href="">Profile</a>
+                                    <a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a>
+                                {% else %}
+                                    <a class="dropdown-item" href="{% url 'account_login' %}">Login</a>
+                                    <a class="dropdown-item" href="{% url 'account_signup' %}">Sign Up</a>
+                                {% endif %}
+                            </div>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="" class="nav-link {% if grand_total_items %}text-success{% else %}text-secondary{% endif %}">
+                                <div class="text-center">
+                                    <div><i class="bi bi-cart-fill"></i></div>
+                                <p class="m-0">
+                                    {% if grand_total_items %}
+                                        <i class="bi bi-cart"></i> <span class="badge bg-secondary">{{ grand_total_items }}</span>
+                                    {% else %}
+                                    £0.00
+                                    {% endif %} <span class="visually-hidden">in cart</span>
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
        
     </header>
 
-    {%if message %}
+    {% if message %}
         <div class="alert alert-info text-center" role="alert">
             {{ message }}
         </div>
