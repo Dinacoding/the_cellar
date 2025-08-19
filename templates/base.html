@@ -1,12 +1,13 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <!--Meta Tags-->
     {% block meta %}
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     {% endblock %}
     {% block extra_meta %}
     {% endblock %}
@@ -16,96 +17,32 @@
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">    {% endblock %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+        rel="stylesheet"> {% endblock %}
     <!--End of Bootstrap CSS-->
     <!--Custom CSS-->
     {% block extra_css %}
-        <link rel="stylesheet" href="{% static 'css/extra.css' %}">
-    {% endblock %} 
+    <link rel="stylesheet" href="{% static 'css/extra.css' %}">
+    {% endblock %}
     <!--End of Custom CSS-->
     <!--Bootstrap Bundle JS-->
     {% block core_js %}
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
     {% endblock %}
     <!--End of Bootstrap Bundle JS-->
     <!--Custom JS-->
     {% block extra_js %}
-        <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
     {% endblock %}
     <!--End of Custom JS-->
     <title>The Cellar {% block extra_title %}{% endblock %}</title>
-    <style>
-        body {
-            padding-top: 140px; /* Space for fixed header */
-        }
-        
-        .logo-font {
-            font-family: 'Lato', sans-serif;
-        }
-        
-        .main-logo-link {
-            text-decoration: none;
-        }
-        
-        .main-logo-link:hover {
-            text-decoration: none;
-        }
-        
-        .text-black {
-            color: black !important;
-        }
-        
-        /* Custom styles for the header */
-        #topnav {
-            padding: 10px 0;
-        }
-        
-        .nav-link {
-            color: white;
-            text-decoration: none;
-        }
-        
-        .nav-link:hover {
-            color: #ccc;
-        }
-        
-        /* Make dropdown items inline (horizontal) */
-        .dropdown-menu-inline {
-            display: flex;
-            flex-direction: row;
-            min-width: auto;
-            padding: 0.5rem;
-        }
-        
-        .dropdown-menu-inline .dropdown-item {
-            padding: 0.5rem 1rem;
-            margin: 0;
-            border-right: 1px solid #dee2e6;
-            white-space: nowrap;
-            color: black;
-        }
-        
-        .dropdown-menu-inline .dropdown-item:last-child {
-            border-right: none;
-        }
-        
-        .dropdown-menu-inline .dropdown-item:hover {
-            background-color: #f8f9fa;
-        }
-        
-        .btn-outline-light {
-            border-color: white;
-            color: white;
-        }
-        
-        .btn-outline-light:hover {
-            background-color: white;
-            color: #198754;
-        }
-    </style>
-  </head>
-  <body>
-   
+    
+</head>
+
+<body>
+
     <header class="container-fluid  fixed-top">
         <div id="topnav" class="row d-lg-flex pt-lg-2 d-none bg-success text-white">
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
@@ -116,10 +53,10 @@
             <div class="col-12 col-lg-4  my-auto py-1 py-lg-0">
                 <form action="" method="get">
                     <div class="input-group w-100">
-                        <input type="text" class="form-control" placeholder="Search for wines..." name="search">
+                        <input type="text" class="form-control border border-white rounded-0" placeholder="Search for wines..." name="search">
                         <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="submit">
-                                <i class="bi bi-search"></i> Search
+                            <button class="btn btn-white rounded-0" type="submit">
+                                <span class="icon"><i class="bi bi-search"></i></span>
                             </button>
                         </div>
                     </div>
@@ -128,11 +65,11 @@
             <div class="col-12 col-lg-4  my-auto py-1 py-lg-0">
                 <ul class="list-inline list-unstyled text-center text-lg-right my-0">
                     <li class="list-inline-item dropdown">
-                        <a href class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a href="" class="nav-link text-white" data-bs-toggle="dropdown" id="user-options" aria-expanded="false">
                             <div><i class="bi bi-person-circle"></i></div>
-                            <p>Account</p>
+                            <p class="my-0">Account</p>
                         </a>
-                        <div class="dropdown-menu border-0 shadow">
+                        <div class="dropdown-menu dropdown-menu-inline dropdown-menu-end border-0 shadow">
                             {% if user.is_authenticated %}
                             {% if request.user.is_superuser %}
                             <a class="dropdown-item" href="#">Superuser</a>
@@ -146,18 +83,17 @@
                         </div>
                     </li>
                     <li class="list-inline-item">
-                        <a href=""
-                            class="nav-link {% if grand_total_items %}text-success{% else %}text-secondary{% endif %}">
+                        <a href="" class="nav-link {% if grand_total_items %}text-success{% else %}text-black{% endif %}">
                             <div class="text-center">
                                 <div><i class="bi bi-cart-fill"></i></div>
                                 <p class="m-0">
                                     {% if grand_total_items %}
-                                    <i class="bi bi-cart"></i> <span class="badge bg-secondary">{{ grand_total_items
-                                        }}</span>
+                                    £{{ grand_total|floatformat:2 }} 
                                     {% else %}
                                     £0.00
-                                    {% endif %} <span class="visually-hidden">in cart</span>
+                                    {% endif %} 
                                 </p>
+                            </div>
                         </a>
                     </li>
                 </ul>
@@ -166,10 +102,10 @@
     </header>
 
     {% if message %}
-        <div class="alert alert-info text-center" role="alert">
-            {{ message }}
-        </div>
-    {% endif %}    
+    <div class="alert alert-info text-center" role="alert">
+        {{ message }}
+    </div>
+    {% endif %}
 
     {% block page_header %}
     {% endblock %}
@@ -179,5 +115,6 @@
 
     {% block postloadjs %}
     {% endblock %}
-  </body>
+</body>
+
 </html>
