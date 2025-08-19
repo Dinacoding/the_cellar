@@ -34,20 +34,24 @@
     <title>The Cellar {% block extra_title %}{% endblock %}</title>
   </head>
   <body>
+   
     <header class="container-fluid bg-dark text-white fixed-top">
-        {%if message %}
-            <div class="alert alert-info text-center" role="alert">
-                {{ message }}
-            </div>
-        {% endif %}
-      <div class="message-container">
-        <h1 class="text-center py-3">The Cellar</h1>
-      </div>
+       
     </header>
-        {% block content %}
-        {% endblock %}
 
-        {% block postloadjs %}
-        {% endblock %}
+    {%if message %}
+        <div class="alert alert-info text-center" role="alert">
+            {{ message }}
+        </div>
+    {% endif %}    
+
+    {% block page_header %}
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}
+
+    {% block postloadjs %}
+    {% endblock %}
   </body>
 </html>
