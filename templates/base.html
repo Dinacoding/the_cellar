@@ -8,11 +8,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
     {% endblock %}
-    {& block extra_meta %}
+    {% block extra_meta %}
     {% endblock %}
-
     <!--End of Meta Tags-->
-    <title>The Cellar</title>
     <!--Bootstrap CSS-->
     {% block core_css %}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFld6+Q6d8e5a" crossorigin="anonymous">
@@ -33,8 +31,23 @@
         <script src="{% static 'js/script.js' %}"></script>
     {% endblock %}
     <!--End of Custom JS-->
+    <title>The Cellar {% block extra_title %}{% endblock %}</title>
   </head>
   <body>
-    
+    <header class="container-fluid bg-dark text-white fixed-top">
+        {%if message %}
+            <div class="alert alert-info text-center" role="alert">
+                {{ message }}
+            </div>
+        {% endif %}
+      <div class="message-container">
+        <h1 class="text-center py-3">The Cellar</h1>
+      </div>
+    </header>
+        {% block content %}
+        {% endblock %}
+
+        {% block postloadjs %}
+        {% endblock %}
   </body>
 </html>
