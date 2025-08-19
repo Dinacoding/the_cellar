@@ -9,6 +9,7 @@ body {
 
 .main-logo-link {
     text-decoration: none;
+    width: fit-content;
 }
 
 .main-logo-link:hover {
