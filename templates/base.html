@@ -38,41 +38,33 @@
     {% endblock %}
     <!--End of Custom JS-->
     <title>The Cellar {% block extra_title %}{% endblock %}</title>
-    
+
 </head>
 
 <body>
-
-    <header class="container-fluid  fixed-top">
-        <div id="topnav" class="row d-lg-flex pt-lg-2 d-none bg-success text-white">
-            <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
+    <header class="container-fluid fixed-top">
+        <div id="topnav" class="row d-flex flex-wrap align-items-center bg-success text-white py-2">
+            <div class="col-12 d-flex justify-content-between align-items-center d-lg-none">
                 <a href="{% url 'home' %}" class="nav-link main-logo-link">
                     <h2 class="logo-font text-black my-0">The Cellar</h2>
                 </a>
-            </div>
-            <div class="col-12 col-lg-4  my-auto py-1 py-lg-0">
-                <form action="" method="get">
-                    <div class="input-group w-100">
-                        <input type="text" class="form-control border border-white rounded-0" placeholder="Search for wines..." name="search">
-                        <div class="input-group-append">
-                            <button class="btn btn-white rounded-0" type="submit">
-                                <span class="icon"><i class="bi bi-search"></i></span>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col-12 col-lg-4  my-auto py-1 py-lg-0">
-                <ul class="list-inline list-unstyled text-center text-lg-right my-0">
-                    <li class="list-inline-item dropdown">
-                        <a href="" class="nav-link text-white" data-bs-toggle="dropdown" id="user-options" aria-expanded="false">
+                <ul class="list-inline list-unstyled my-0 d-flex w-50 align-items-center justify-content-around">
+                    <li class="list-inline-item">
+                        <button class="btn btn-white rounded-0 border-0 py-3" type="submit">
+                            <span class="icon"><i class="bi bi-search"></i></span>
+                            <span class="text">Search</span>
+                        </button>
+                    </li>
+                    <li class="list-inline-item dropdown text-center">
+                        <a href="" class="nav-link text-white" data-bs-toggle="dropdown" id="user-options"
+                            aria-expanded="false">
                             <div><i class="bi bi-person-circle"></i></div>
                             <p class="my-0">Account</p>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-inline dropdown-menu-end border-0 shadow">
+                        <div class="dropdown-menu dropdown-menu-end border-0 shadow">
                             {% if user.is_authenticated %}
                             {% if request.user.is_superuser %}
-                                <a class="dropdown-item" href="#">Product Management</a>
+                            <a class="dropdown-item" href="#">Product Management</a>
                             {% endif %}
                             <a class="dropdown-item" href="">Profile</a>
                             <a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a>
@@ -83,15 +75,75 @@
                         </div>
                     </li>
                     <li class="list-inline-item">
-                        <a href="" class="nav-link {% if grand_total_items %}text-success{% else %}text-black{% endif %}">
+                        <a href=""
+                            class="nav-link border-outline-white {% if grand_total_items %}text-success{% else %}text-black{% endif %}">
                             <div class="text-center">
                                 <div><i class="bi bi-cart-fill"></i></div>
                                 <p class="m-0">
                                     {% if grand_total_items %}
-                                    £{{ grand_total|floatformat:2 }} 
+                                    £{{ grand_total|floatformat:2 }}
                                     {% else %}
                                     £0.00
-                                    {% endif %} 
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left d-none d-lg-block">
+                <a href="{% url 'home' %}" class="nav-link main-logo-link">
+                    <h2 class="logo-font text-black my-0">The Cellar</h2>
+                </a>
+            </div>
+            <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 d-none d-lg-block">
+                <form action="" method="get">
+                    <div class="input-group w-100">
+                        <input type="text" class="form-control border border-white rounded-0"
+                            placeholder="Search for wines..." name="search">
+                        <div class="input-group-append">
+                            <button class="btn btn-white bg-black rounded-0" type="submit">
+                                <span class="icon"><i class="bi bi-search text-white"></i></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 d-none d-lg-block">
+                <ul
+                    class="list-inline list-unstyled text-center text-lg-right my-0  d-flex justify-content-end align-items-center">
+                    <li class="list-inline-item dropdown mx-3">
+                        <a href="" class="nav-link text-white" data-bs-toggle="dropdown" id="user-options"
+                            aria-expanded="false">
+                            <div><i class="bi bi-person-circle"></i></div>
+                        </a>
+                        <p class="my-0 d-md-none d-lg-block">Account</p>
+
+                        <div class="dropdown-menu dropdown-menu-end border-0 shadow">
+                            {% if user.is_authenticated %}
+                            {% if request.user.is_superuser %}
+                            <a class="dropdown-item" href="#">Product Management</a>
+                            {% endif %}
+                            <a class="dropdown-item" href="">Profile</a>
+                            <a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a>
+                            {% else %}
+                            <a class="dropdown-item" href="{% url 'account_login' %}">Login</a>
+                            <a class="dropdown-item" href="{% url 'account_signup' %}">Sign Up</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                    <li class="list-inline-item border-outline-1-solid-white">
+                        <a href=""
+                            class="nav-link {% if grand_total_items %}text-success{% else %}text-black{% endif %} ">
+                            <div class="text-center">
+                                <div><i class="bi bi-cart-fill"></i></div>
+                                <p class="m-0">
+                                    {% if grand_total_items %}
+                                    £{{ grand_total|floatformat:2 }}
+                                    {% else %}
+                                    £0.00
+                                    {% endif %}
                                 </p>
                             </div>
                         </a>
@@ -109,9 +161,12 @@
 
     {% block page_header %}
     {% endblock %}
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
 
-    {% block content %}
-    {% endblock %}
+
 
     {% block postloadjs %}
     {% endblock %}
