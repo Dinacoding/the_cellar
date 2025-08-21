@@ -1,11 +1,13 @@
 
 from django.urls import path
 from django.http import HttpResponse
+from . import views 
 # A simple view function for demonstration
 
 def home_view(request):
     return HttpResponse("Home page is working!")
 
 urlpatterns = [
-    path('', home_view, name='home'),
+    path('', views.all_wines, name='wines'),  
+    path('all_categories/', views.all_categories, name='categories'),
 ]
