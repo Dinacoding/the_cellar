@@ -2,6 +2,11 @@ from django.db import models
 
 # Create your models here.
 class Category(models.Model):
+
+    class Meta:
+        verbose_name_plural = 'Categories'
+
+    """Model representing a category of wine."""
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
 
