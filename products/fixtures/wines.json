@@ -1,0 +1,134 @@
+[
+  {
+    "model": "products.wine",
+    "pk": 1,
+    "fields": {
+      "name": "Merlot",
+      "category": 1,
+      "description": "A smooth, medium-bodied red wine with notes of black cherry, plum, and cocoa. Known for its soft, approachable tannins.",
+      "price": 30.00,
+      "image": "https://example.com/images/merlot.jpg"
+    }
+  },
+  {
+    "model": "products.wine",
+    "pk": 2,
+    "fields": {
+      "name": "Cabernet Sauvignon",
+      "category": 1,
+      "description": "A full-bodied red wine with rich flavors of blackcurrant, blackberry, and subtle hints of spice and oak. It has a long, robust finish.",
+      "price": 45.00,
+      "image": "https://example.com/images/cabernet_sauvignon.jpg"
+    }
+  },
+  {
+    "model": "products.wine",
+    "pk": 3,
+    "fields": {
+      "name": "Pinot Noir",
+      "category": 1,
+      "description": "A light-bodied and elegant red wine, showcasing delicate flavors of cherry, raspberry, and earthy undertones. It's highly versatile for food pairings.",
+      "price": 35.00,
+      "image": "https://example.com/images/pinot_noir.jpg"
+    }
+  },
+  {
+    "model": "products.wine",
+    "pk": 4,
+    "fields": {
+      "name": "Chardonnay",
+      "category": 2,
+      "description": "A crisp and refreshing white wine with flavors of green apple, citrus, and a subtle mineral finish. It is unoaked for a clean profile.",
+      "price": 28.00,
+      "image": "https://example.com/images/chardonnay.jpg"
+    }
+  },
+  {
+    "model": "products.wine",
+    "pk": 5,
+    "fields": {
+      "name": "Sauvignon Blanc",
+      "category": 2,
+      "description": "A vibrant and zesty Sauvignon Blanc with intense notes of passionfruit, gooseberry, and a hint of fresh-cut grass. It is crisp, refreshing, and has a clean finish.",
+      "price": 25.50,
+      "image": "https://example.com/images/sauvignon_blanc.jpg"
+    }
+  },
+  {
+    "model": "products.wine",
+    "pk": 6,
+    "fields": {
+      "name": "Riesling",
+      "category": 2,
+      "description": "An aromatic white wine known for its high acidity and strong floral and citrus aromas. It can range from bone-dry to very sweet.",
+      "price": 22.00,
+      "image": "https://example.com/images/riesling.jpg"
+    }
+  },
+  {
+    "model": "products.wine",
+    "pk": 7,
+    "fields": {
+      "name": "Champagne",
+      "category": 3,
+      "description": "A classic sparkling wine from the Champagne region of France, celebrated for its fine bubbles, high acidity, and complex notes of brioche and apple.",
+      "price": 75.00,
+      "image": "https://example.com/images/champagne.jpg"
+    }
+  },
+  {
+    "model": "products.wine",
+    "pk": 8,
+    "fields": {
+      "name": "Prosecco",
+      "category": 3,
+      "description": "A popular Italian sparkling wine with a light, fruity profile, often featuring notes of green apple, pear, and citrus. Perfect for an aperitif.",
+      "price": 20.00,
+      "image": "https://example.com/images/prosecco.jpg"
+    }
+  },
+  {
+    "model": "products.wine",
+    "pk": 9,
+    "fields": {
+      "name": "Cava",
+      "category": 3,
+      "description": "A crisp and versatile Spanish sparkling wine with flavors of lemon, toasted nuts, and a clean, effervescent finish. It's made in the traditional method.",
+      "price": 18.00,
+      "image": "https://example.com/images/cava.jpg"
+    }
+  },
+  {
+    "model": "products.wine",
+    "pk": 10,
+    "fields": {
+      "name": "Grenache",
+      "category": 4,
+      "description": "A dry, fruity rosé with flavors of strawberry, cherry, and subtle spice. It's full-bodied and well-balanced, making it great with food.",
+      "price": 24.00,
+      "image": "https://example.com/images/grenache_rose.jpg"
+    }
+  },
+  {
+    "model": "products.wine",
+    "pk": 11,
+    "fields": {
+      "name": "Syrah",
+      "category": 4,
+      "description": "A savory rosé with a deep color and notes of red fruit, olive, and herbs. Its complexity and structure pair well with richer dishes.",
+      "price": 26.50,
+      "image": "https://example.com/images/syrah_rose.jpg"
+    }
+  },
+  {
+    "model": "products.wine",
+    "pk": 12,
+    "fields": {
+      "name": "Sangiovese",
+      "category": 4,
+      "description": "A light and refreshing Italian rosé with bright acidity and flavors of cranberry, raspberry, and a touch of rose petal. It's a great warm-weather wine.",
+      "price": 23.00,
+      "image": "https://example.com/images/sangiovese_rose.jpg"
+    }
+  }
+]
