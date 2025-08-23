@@ -1,29 +1,26 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block content %} 
+{% block content %}
 <div class="container">
-    <h2 class="my-4 text-center">Our Wines</h2>
+    <h2 class="my-4">Our Wines</h2>
     <div class="row">
         {% for wine in wines %}
         <div class="col-md-4 mb-4">
             <div class="card h-100">
-                {% if image wine.image %}
                 <img src="{{ wine.image.url }}" class="card-img-top" alt="{{ wine.name }}">
-                {% else %}
-                <img src="{% static 'images/default_wine.jpg' %}" class="card-img-top" alt="Default Wine Image">
-                {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ wine.name }}</h5>
                     <p class="card-text">{{ wine.description }}</p>
+                </div>
+                <div class="card-footer">
                     <p class="card-text"><strong>Price:</strong> £{{ wine.price|floatformat:2 }}</p>
-                </div>
-                <div class="card-footer text-center">
                     <a href="{% url 'wine_detail' wine.id %}" class="btn btn-primary">View Details</a>
-                    <a href="{% url 'add_to_cart' wine.id %}" class="btn btn-success">Add to Cart</a>
                 </div>
+
             </div>
-        {% endfor %}
+        </div>
+        {% endfor %}    
     </div>
 </div>
 {% endblock %}

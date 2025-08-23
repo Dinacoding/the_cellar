@@ -8,7 +8,7 @@ def index(request):
 
     return render(request, 'home/index.html')
 
-def all_wines(request):
+def all_wines (request):
     """Render the wine index page."""
     wines = Wine.objects.all()
     context = {  # create a context dictionary to pass data to the template
