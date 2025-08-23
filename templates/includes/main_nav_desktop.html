@@ -1,12 +1,15 @@
 <div class="collapse navbar-collapse justify-content-center" id="main-nav">
         <ul class="navbar-nav mx-auto">
+            <li>
+                <a class="nav-link active" aria-current="page" href="{% url 'all_wine' %}">All wine</a>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="redDropdown" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">Red</a>
                 <ul class="dropdown-menu" aria-labelledby="redDropdown">
-                    <li><a class="dropdown-item" href="#">Merlot</a></li>
-                    <li><a class="dropdown-item" href="#">Cabernet Sauvignon</a></li>
-                    <li><a class="dropdown-item" href="#">Pinot Noir</a></li>
+                    <li><a class="dropdown-item" href="{% url 'wine_merlot' wine.id %}">Merlot</a></li>
+                    <li><a class="dropdown-item" href="{% url 'wine_cabernet_sauvignon' wine.id %}">Cabernet Sauvignon</a></li>
+                    <li><a class="dropdown-item" href="{% url 'wine_pinot_noir' wine.id %}">Pinot Noir</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown">

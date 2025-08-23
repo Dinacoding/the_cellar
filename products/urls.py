@@ -10,4 +10,5 @@ def home_view(request):
 urlpatterns = [
     path('', views.all_wines, name='wines'),  
     path('all_categories/', views.all_categories, name='categories'),
+    path('<int:wine_id>/', views.wine_detail, name='wine_detail'),  # Dynamic URL pattern for wine details
 ]

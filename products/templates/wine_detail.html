@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="container-fluid my-5">
+        <div class="row">
+            {% for wine in wines %}
+                <div class="col">
+                    {% if wine.image %}
+                    <div class="image-container m-4">
+                        <a href="{{ wine.image.url }}" target="_blank">
+                            <img src="{{ wine.image.url }}" class="img-fluid" alt="{{ wine.name }}">
+                        </a>
+                    {% else %}
+                    <div class="image-container m-4">
+                        <a href="#" target="_blank">
+                            <img src="{{MEDIA_URL}}images/default_wine.jpg" class="img-fluid" alt="Default Wine Image">
+                        </a>
+                    {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <h2 class="mt-2">{{ wine.name }}</h2>
+                            <p>{{ wine.description }}</p>
+                            <p><strong>Price:</strong> £{{ wine.price|floatformat:2 }}</p>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="text-center">
+                            <a href="{% url 'add_to_cart' wine.id %}" class="btn btn-success btn-lg">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>  
+    </div>
+</div>
+{% endblock %}
