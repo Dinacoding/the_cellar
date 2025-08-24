@@ -1,28 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block content %}
-<div class="container-fluid my-5">
-    <div class="row">
-        {% for wine in wines %}
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                {% if wine.image %}
-                <img src="{{ wine.image.url }}" class="card-img-top" alt="{{ wine.name }}">
-                {% else %}
-                <img src="{% static 'images/default_wine.jpg' %}" class="card-img-top" alt="Default Wine Image">
-                {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">{{ wine.name }}</h5>
-                    <p class="card-text">{{ wine.description }}</p>
-                    <p class="card-text"><strong>Price:</strong> £{{ wine.price|floatformat:2 }}</p>
-                </div>
-                <div class="card-footer text-center">
-                    <a href="{% url 'wines' wine.id %}" class="btn btn-primary">View Details</a>
-                    <a href="" class="btn btn-success">Add to Cart</a>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>  
+
+{% block content %} 
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ wine.image.url }}" class="img-fluid" alt="{{ wine.name }}">
+        </div>
+        <div class="col-md-6">
+            <h2>{{ wine.name }}</h2>
+            <p>{{ wine.description }}</p>
+            <h4>Price: £{{ wine.price|floatformat:2 }}</h4>
+            <form method="post" action="">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1" class="form-control w-25">
+                </div>
+                <button type="submit" class="btn btn-success">Add to Cart</button>
+            </form>
+        </div>
+    </div>
 </div>
+<div>
 {% endblock %}
