@@ -4,10 +4,10 @@
     </a>
 </div>
 <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 d-none d-lg-block">
-    <form action="" method="get">
+    <form action="{% url 'all_wines' %}" method="get">
         <div class="input-group w-100">
             <input type="text" class="form-control border border-white rounded-0"
-                placeholder="Search for wines..." name="search">
+                placeholder="Search for wines..." name="q">
             <div class="input-group-append">
                 <button class="btn btn-white bg-black rounded-0" type="submit">
                     <span class="icon"><i class="bi bi-search text-white"></i></span>
