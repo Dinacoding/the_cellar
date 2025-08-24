@@ -81,6 +81,16 @@ body {
 }
 
 /*Media queries*/
+
+@media (min-width: 768px) {
+    .card-img-top {
+        width: 30%;
+        height: 230px;
+        object-fit: contain;
+    }
+}
+
+
 @media (min-width: 1200px) {
     
 }
