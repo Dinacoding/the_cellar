@@ -1,42 +1,50 @@
 <div class="collapse navbar-collapse justify-content-center" id="main-nav">
         <ul class="navbar-nav mx-auto">
-            <li>
-                <a class="nav-link active" aria-current="page" href="{% url 'all_wines' %}">All wine</a>
+            <li><a class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="whiteDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">All Wine</a>
+                <ul class="dropdown-menu p-0" aria-labelledby="allWinesDropdown">
+                    <li><a href="{% url 'all_wines' %}?sort=price&direction=asc" class="dropdown-item">Price: Low to High</a></li>
+                    <li><a href="{% url 'all_wines' %}?sort=price&direction=desc" class="dropdown-item">Price: High to Low</a></li>
+                    <li><a href="{% url 'all_wines' %}?sort=rating&direction=asc" class="dropdown-item">Rating: Low to High</a></li>
+                    <li><a href="{% url 'all_wines' %}?sort=category" class="dropdown-item">Category</a></li>
+                    <li><a href="{% url 'all_wines' %}?sort=year" class="dropdown-item">Year</a></li>
+                </ul>
+            </li>
+
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="redDropdown" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">Red</a>
                 <ul class="dropdown-menu" aria-labelledby="redDropdown">
-                    <li><a class="dropdown-item" href="#">Merlot</a></li>
-                    <li><a class="dropdown-item" href="#">Cabernet Sauvignon</a></li>
-                    <li><a class="dropdown-item" href="#">Pinot Noir</a></li>
+                    <li><a class="dropdown-item" href="{% url 'all_wines' %}?category=Merlot">Merlot</a></li>
+                    <li><a class="dropdown-item" href="{% url 'all_wines' %}?category=Cabernet%20Sauvignon">Cabernet Sauvignon</a></li>
+                    <li><a class="dropdown-item" href="{% url 'all_wines' %}?category=Pinot%20Noir">Pinot Noir</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="whiteDropdown" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">White</a>
                 <ul class="dropdown-menu" aria-labelledby="whiteDropdown">
-                    <li><a class="dropdown-item" href="#">Chardonnay</a></li>
-                    <li><a class="dropdown-item" href="#">Sauvignon Blanc</a></li>
-                    <li><a class="dropdown-item" href="#">Riesling</a></li>
+                    <li><a class="dropdown-item" href="{% url 'all_wines' %}?category=Chardonnay">Chardonnay</a></li>
+                    <li><a class="dropdown-item" href="{% url 'all_wines' %}?category=Sauvignon%20Blanc">Sauvignon Blanc</a></li>
+                    <li><a class="dropdown-item" href="{% url 'all_wines' %}?category=Riesling">Riesling</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="sparklingDropdown" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">Sparkling</a>
                 <ul class="dropdown-menu" aria-labelledby="sparklingDropdown">
-                    <li><a class="dropdown-item" href="#">Champagne</a></li>
-                    <li><a class="dropdown-item" href="#">Prosecco</a></li>
-                    <li><a class="dropdown-item" href="#">Cava</a></li>
+                    <li><a class="dropdown-item" href="{% url 'all_wines' %}?category=Champagne">Champagne</a></li>
+                    <li><a class="dropdown-item" href="{% url 'all_wines' %}?category=Prosecco">Prosecco</a></li>
+                    <li><a class="dropdown-item" href="{% url 'all_wines' %}?category=Cava">Cava</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="roseDropdown" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">Rosé</a>
                 <ul class="dropdown-menu" aria-labelledby="roseDropdown">
-                    <li><a class="dropdown-item" href="#">Grenache</a></li>
-                    <li><a class="dropdown-item" href="#">Syrah</a></li>
-                    <li><a class="dropdown-item" href="#">Sangiovese</a></li>
+                    <li><a class="dropdown-item" href="{% url 'all_wines' %}?category=Grenache">Grenache</a></li>
+                    <li><a class="dropdown-item" href="{% url 'all_wines' %}?category=Syrah">Syrah</a></li>
+                    <li><a class="dropdown-item" href="{% url 'all_wines' %}?category=Sangiovese">Sangiovese</a></li>
                 </ul>
             </li>
         </ul>

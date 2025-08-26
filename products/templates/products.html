@@ -12,6 +12,8 @@
                 <div class="card-body text-center">
                     <h5 class="card-title">{{ wine.name }}</h5>
                     <p class="card-text">{{ wine.description }}</p>
+                    <p class="card-text"><strong>Year:</strong> {{ wine.year }}</p>
+                    <p class="card-text"><strong>Rating:</strong> {{ wine.rating }} / 5</p>
                 </div>
                 <div class="card-footer">
                     <p class="card-text"><strong>Price:</strong> £{{ wine.price|floatformat:2 }}</p>
