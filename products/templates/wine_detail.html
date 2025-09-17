@@ -3,28 +3,36 @@
 
 {% block content %} 
 <div class="container my-5">
-    <div class="row">
+    <h2 class="text-center mb-5"> Your wine</h2>
+   {% for wine in wines %}
+    <div class="row mb-5 p-3 bg-light rounded shadow-sm">
+        <!-- Image Column -->
         <div class="col-md-6">
             {% if wine.image %}
-            <img src="{{ wine.image.url }}" class="img-fluid" alt="{{ wine.name }}">
+            <img src="{{ wine.image.url }}" class="img-fluid rounded" alt="{{ wine.name }}">
             {% else %}
-            <img src="{% static 'images/placeholder.png' %}" class="img-fluid" alt="No image available">
+            <img src="{% static 'images/placeholder.png' %}" class="img-fluid rounded" alt="No image available">
             {% endif %}
         </div>
-        <div class="col-md-6">
+
+        <!-- Info Column -->
+        <div class="col-md-6 d-flex flex-column justify-content-center">
             <h2>{{ wine.name }}</h2>
             <p>{{ wine.description }}</p>
             <h4>Price: £{{ wine.price|floatformat:2 }}</h4>
-            <form method="post" action="">
+
+            <form method="post" action="{% url 'add_to_cart' wine.id %}">
                 {% csrf_token %}
                 <div class="mb-3">
-                    <label for="quantity" class="form-label">Quantity:</label>
-                    <input type="number" id="quantity" name="quantity" value="1" min="1" class="form-control w-25">
+                    <label for="quantity-{{ wine.id }}" class="form-label">Quantity:</label>
+                    <input type="number" id="quantity-{{ wine.id }}" name="quantity" value="1" min="1" class="form-control w-25">
                 </div>
                 <button type="submit" class="btn btn-success">Add to Cart</button>
             </form>
         </div>
     </div>
+    {% empty %}
+    <p class="text-center text-muted">No wines available at the moment.</p>
+    {% endfor %}
 </div>
-<div>
 {% endblock %}
