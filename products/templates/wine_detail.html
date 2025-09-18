@@ -20,8 +20,7 @@
             <h2>{{ wine.name }}</h2>
             <p>{{ wine.description }}</p>
             <h4>Price: £{{ wine.price|floatformat:2 }}</h4>
-
-            <form method="post" action="{% url 'add_to_cart' wine.id %}">
+            <form method="post" action="{% url 'shop_home' wine.id %}">
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="quantity-{{ wine.id }}" class="form-label">Quantity:</label>

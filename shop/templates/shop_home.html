@@ -2,5 +2,20 @@
 {% load static %}
 
 {% block content %}
-    
+    <div>
+        {% for wine in wines %}
+            <div>
+                <h2>{{ wine.name }}</h2>
+                <p>Category: {{ wine.category }}</p>
+                <p>Year: {{ wine.year }}</p>
+                <p>Price: ${{ wine.price }}</p>
+                <p>{{ wine.description }}</p>
+                {% if wine.image %}
+                    <img src="{{ wine.image.url }}" alt="{{ wine.name }}">
+                {% endif %}
+                <p>Rating: {{ wine.rating }}</p>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
 {% endblock %}

@@ -10,5 +10,5 @@ def home_view(request):
 urlpatterns = [
     path('', views.all_wines, name='all_wines'),  
     path('all_categories/', views.all_categories, name='all_categories'),
-    path('<int:wine_id>/', views.wine_detail, name='wine_detail'),
+    path('wine/<int:wine_id>/', views.wine_detail, name='wine_detail'),
 ]
