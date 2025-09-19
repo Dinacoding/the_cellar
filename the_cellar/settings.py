@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'products',  # Your products app
     'shop', # Your shops app
     'crispy_forms',
+    'crispy_bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -61,7 +62,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'the_cellar.urls'
 
-CRISPY_TEMPLATES_PACK = 'bootstrap4'
+# Add this for Bootstrap 4
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# Add this for Bootstrap 5
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 TEMPLATES = [
     {
@@ -80,8 +85,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
             'builtins':[
-                'crispy_forms.templates.crispy_forms_tags',
-                'crispy_forms.templates.crispy_forms_field',
+                'crispy_forms.templatetags.crispy_forms_tags',
             ]
         },
     },
