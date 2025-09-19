@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+
+    {% if cart_items %}
+    {% for item in cart_items %}
+    <div class="cart-item">
+        <h4>{{ item.wine.name }}</h4>
+        <p>Price: ${{ item.wine.price }}</p>
+        <p>Quantity: {{ item.quantity }}</p>
+        <p>Subtotal: ${{ item.subtotal }}</p>
+    </div>
+    {% endfor %}
+
+    <h3>Total: ${{ total }}</h3>
+    <a href="{% url 'checkout' %}">Proceed to Checkout</a>
+    {% else %}
+    <p>Your cart is empty.</p>
+    {% endif %}
+</div>
+{% endblock %}
