@@ -19,9 +19,9 @@
                         <p class="card-text"><strong>Year:</strong> {{ wine.year }}</p>
                         <p class="card-text"><strong>Rating:</strong> {{ wine.rating }} / 5</p>
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer text-center">
                         <p class="card-text"><strong>Price:</strong> £{{ wine.price|floatformat:2 }}</p>
-                        <a href="{% url 'wine_detail' wine.id %}" class="btn btn-success">View Details</a>  
+                        <a href="{% url 'wine_detail' wine.id %}" class="btn btn-success mb-2">View Details</a>  
                         <form class="form" action="{% url 'view_cart' %}" method="POST">
                             {% csrf_token %}
                             <div class="form-group">
