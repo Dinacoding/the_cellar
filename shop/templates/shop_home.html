@@ -22,7 +22,7 @@
                     <div class="card-footer text-center">
                         <p class="card-text"><strong>Price:</strong> £{{ wine.price|floatformat:2 }}</p>
                         <a href="{% url 'wine_detail' wine.id %}" class="btn btn-success mb-2">View Details</a>  
-                        <form class="form" action="{% url 'view_cart' %}" method="POST">
+                        <form class="form" action="{% url 'add_to_cart' wine.id %}" method="POST">
                             {% csrf_token %}
                             <div class="form-group">
                                 <div class="input-group">

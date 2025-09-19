@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block content %}
-<div>
-    <h2>Checkout</h2>
+<div class="overlay d-flex text-center flex-direction-column justify-content-center align-items-center p-4">
+    <h2>Your Order</h2>
     {% if messages %}
     {% for message in messages %}
     <div class="alert alert-{{ message.tags }}">{{ message }}</div>
@@ -13,15 +13,32 @@
     {% if cart_items %}
     {% for item in cart_items %}
     <div class="cart-item">
+        <img src="{{ item.wine.image.url }}" class="card-img-top" alt="{{ item.wine.name }}">
         <h4>{{ item.wine.name }}</h4>
-        <p>Price: ${{ item.wine.price }}</p>
+        <p>Price: £{{ item.wine.price }}</p>
         <p>Quantity: {{ item.quantity }}</p>
-        <p>Subtotal: ${{ item.subtotal }}</p>
+
+        <p class="card-text">Subtotal: £{{ item.subtotal|floatformat:2 }}</p>
+
+        <form action="{% url 'update_cart' item.item_id %}" method="POST" class="d-flex align-items-center">
+            {% csrf_token %}
+            <div class="input-group" style="width: 150px;">
+                <input type="number" class="form-control" name="quantity" value="{{ item.quantity }}" min="1">
+                <button type="submit" class="btn btn-success ms-2">Update</button>
+            </div>
+        </form>
+
+        <form action="{% url 'remove_from_cart' item.item_id %}" method="POST" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Remove</button>
+        </form>
+
     </div>
     {% endfor %}
 
-    <h3>Total: ${{ total }}</h3>
-    <a href="{% url 'checkout' %}">Proceed to Checkout</a>
+    <h3>Total: £{{ total }}</h3>
+    <a href="{% url 'view_cart' %}">Proceed to Checkout</a>
+    
     {% else %}
     <p>Your cart is empty.</p>
     {% endif %}
