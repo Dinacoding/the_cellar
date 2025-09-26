@@ -1,7 +1,7 @@
 from django import forms
 from .models import Order
 
-
+### taken from Botique ado exercise 
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
@@ -27,7 +27,7 @@ class OrderForm(forms.ModelForm):
             'street_address2': 'Street Address 2',
             'county': 'County',
         }
-
+        
         self.fields['full_name'].widget.attrs['autofocus'] = True
         for field in self.fields:
             if self.fields[field].required:
