@@ -14,13 +14,6 @@
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-12 col-md-8">
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit">Submit Order</button>
-                </form>
-            </div>
-            <div class="col-12 col-md-8">
                 {% if cart_items %}
                 {% for item in cart_items %}
                 <div class="cart-item">
