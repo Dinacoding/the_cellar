@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from products.models import Wine
-
 # Create your views here.
 def checkout(request):
     if request.method == 'POST':

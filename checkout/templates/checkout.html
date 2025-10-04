@@ -3,7 +3,7 @@
 
 {% block content %}
 <h1>Checkout</h1>
-<form method="post" action="{% url 'checkout:checkout' %}">
+<form method="post" action="{% url 'checkout' %}">
     {% csrf_token %}
     <div>
         <label for="address">Shipping Address:</label>

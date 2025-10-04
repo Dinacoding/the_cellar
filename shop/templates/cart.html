@@ -42,7 +42,7 @@
                 {% endfor %}
                 <div class="text-center mt-4">
                     <h3>Total: £{{ total }}</h3>
-                    <a href="{% url 'checkout:checkout' %}" class="btn btn-primary mt-3">Proceed to Checkout</a>
+                    <a href="{% url 'checkout' %}" class="btn btn-primary mt-3">Proceed to Checkout</a>
                 </div>
                 {% else %}
                 <p>Your cart is empty.</p>
