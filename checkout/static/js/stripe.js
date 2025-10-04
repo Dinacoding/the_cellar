@@ -6,8 +6,7 @@
 // Load Stripe.js (make sure to include Stripe.js in your HTML file)
 // <script src="https://js.stripe.com/v3/"></script>
 
-const stripe = Stripe('your_publishable_key');
-
+const stripe = Stripe('pk_test_51S9Bc9F7CPMer9VbvHRHuZ8oKV7yyrBV7HAJDqXZpqPFM62X05bUvTdQa0R7m8IfmgB3vS8yvNeg2zKye0XY4WLz00cHe0DaQT');
 // Example function to handle payment form submission
 async function handlePayment(event) {
     event.preventDefault();

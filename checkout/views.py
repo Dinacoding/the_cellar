@@ -9,7 +9,7 @@ from products.models import Wine
 def checkout(request):
     # Ensure Stripe is initialized (keys are loaded in settings.py)
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
-    stripe_secret_key = settings.STRIPE_SECRET_KEY
+    # stripe_secret_key = settings.STRIPE_SECRET_KEY  # Not used, so commented out
 
     if request.method == 'POST':
         if 'cart' in request.session:
@@ -55,12 +55,13 @@ def checkout(request):
             return redirect('view_cart') 
 
         # RENDER TEMPLATE
-        context = {
-            'stripe_public_key': stripe_public_key,
-            'client_secret': intent.client_secret,
-            
-            'total': total,
-            'current_cart': current_cart,
-        }
+    context = {
+        'stripe_public_key': stripe_public_key,
+        'client_secret': intent.client_secret,
+        'total': total,
+        # Pass the structured data from current_cart
+        'cart_items': list(current_cart.values()),
+        'cart_total': total,
+    }
+    return render(request, 'checkout.html', context)
 
-        return render(request, 'checkout.html', context)
