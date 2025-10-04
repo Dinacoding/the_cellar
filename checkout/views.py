@@ -1,8 +1,11 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.urls import reverse
+from django.conf import settings
+import stripe
 
+from products.models import Wine
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 # Create your views here.
 def checkout(request):
@@ -14,4 +17,4 @@ def checkout(request):
         messages.success(request, "Checkout successful! Thank you for your purchase.")
         return redirect('home')  # Redirect to home or order confirmation page
 
-    return render(request, 'checkout/checkout.html')
+    return render(request, 'checkout.html')

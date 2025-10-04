@@ -176,3 +176,9 @@ MEDIA_ROOT = BASE_DIR / 'media/images'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY', 'pk_test_...') # Replace with your test public key
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', 'sk_test_...') # Replace with your test secret key
+
+import stripe
+stripe.api_key = STRIPE_SECRET_KEY
