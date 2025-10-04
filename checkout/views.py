@@ -1,11 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.conf import settings
-import stripe
-
 from products.models import Wine
-
-stripe.api_key = settings.STRIPE_SECRET_KEY
 
 # Create your views here.
 def checkout(request):
