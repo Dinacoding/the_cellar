@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'shop', # Your shops app
     'crispy_forms',
     'crispy_bootstrap4',
+    'checkout',
 ]
 
 MIDDLEWARE = [
@@ -110,13 +111,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_EMAIL_VERIFICATION_METHOD = 'username_email'   
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_SIGNUP_FIELDS = ['username', 'email']
-ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_MIN_LENGTH = 5
 LOGIN_URL = 'account/login/'
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGIN_METHODS = ['username', 'email']
 ACCOUNT_SIGNUP_FIELDS = ['username*', 'email*']
-
 
 
 WSGI_APPLICATION = 'the_cellar.wsgi.application'
