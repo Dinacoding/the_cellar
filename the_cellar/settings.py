@@ -13,6 +13,13 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 
+if os.path.isfile('env.py'):
+    import env
+
+from decouple import config, Csv
+
+MY_ENVIRONMENT_VARIABLE = config('MY_ENVIRONMENT_VARIABLE', default='default_value')
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -178,12 +185,12 @@ MEDIA_ROOT = BASE_DIR / 'media/images'
 # Stripe
 FREE_DELIVERY_THRESHOLD = 50
 STANDARD_DELIVERY_PERCENTAGE = 10
-STRIPE_CURRENCY = 'gbp'
-STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
-STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', 'sk_test_...') 
-
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 import stripe
+
 stripe.api_key = STRIPE_SECRET_KEY
+# End of file
