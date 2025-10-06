@@ -39,7 +39,7 @@ def checkout(request):
         if not cart:
             messages.error(request, "There's nothing in your cart to checkout.")
             # Redirect to the product listing page
-            return redirect('products') 
+            return redirect('all_wines') 
         # BUILD CURRENT CART
         for item_id, quantity in cart.items():
             wine = get_object_or_404(Wine, pk=item_id)

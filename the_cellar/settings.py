@@ -182,18 +182,27 @@ MEDIA_ROOT = BASE_DIR / 'media/images'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
+# settings.py
+
+import os
+from pathlib import Path
+
+if os.path.isfile('env.py'):
+    import env
+
+# 🎯 CRITICAL FIX: Use config() to reliably read the environment variables.
+from decouple import config, Csv
+
+MY_ENVIRONMENT_VARIABLE = config('MY_ENVIRONMENT_VARIABLE', default='default_value') # Keep this
+# ... (rest of settings file) ...
+
+
 # Stripe
 FREE_DELIVERY_THRESHOLD = 50
 STANDARD_DELIVERY_PERCENTAGE = 10
 STRIPE_CURRENCY = 'gbp'
-STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')  
-STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+
+STRIPE_PUBLIC_KEY = config('STRIPE_PUBLIC_KEY', default='') 
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY', default='')
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-
-
-import stripe
-
-stripe.api_key = STRIPE_SECRET_KEY
-# End of file
