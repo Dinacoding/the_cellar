@@ -4,8 +4,9 @@
 {% load account socialaccount %}
 {% load static %}
 
-{% block extra_head %}
-    <link rel="stylesheet" href="{% static 'css/auth_style.css' %}">
+{% block extra_css %}
+    {{ block.super }} 
+    <link rel="stylesheet" href="{% static 'css/auth_styles.css' %}">
 {% endblock %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
@@ -66,7 +67,7 @@
                         {% endif %}
                         
                         <div class="d-grid gap-2 mt-4">
-                            <button class="btn btn-primary btn-lg" type="submit">{% trans "Sign In" %}</button>
+                            <button class="btn btn-success btn-lg" type="submit">{% trans "Sign In" %}</button>
                         </div>
                         
                         <div class="text-center mt-3">
