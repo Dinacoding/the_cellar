@@ -1,13 +1,10 @@
+{% extends "base.html" %}
+
 {% extends "account/base.html" %}
 
 {% load i18n %}
 {% load account socialaccount %}
-{% load static %}
 
-{% block extra_css %}
-    {{ block.super }} 
-    <link rel="stylesheet" href="{% static 'css/auth_styles.css' %}">
-{% endblock %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 

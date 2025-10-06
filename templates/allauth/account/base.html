@@ -1,40 +1,86 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>{% block head_title %}{% endblock %}</title>
-    {% block extra_head %}
-    {% endblock %}
-  </head>
-  <body>
-    {% block body %}
+{% extends "base.html" %} 
 
-    {% if messages %}
-    <div>
-      <strong>Messages:</strong>
-      <ul>
-        {% for message in messages %}
-        <li>{{message}}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
+{% load i18n %}
+{% load account %}
+{% load static %} 
 
-    <div>
-      <strong>Menu:</strong>
-      <ul>
-        {% if user.is_authenticated %}
-        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
-        {% else %}
-        <li><a href="{% url 'account_login' %}">Sign In</a></li>
-        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
-        {% endif %}
-      </ul>
+{% load socialaccount_tags %} 
+
+
+{% block extra_css %}
+    {{ block.super }} 
+    <link rel="stylesheet" href="{% static 'css/auth_style.css' %}">
+{% endblock %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-5">
+            
+            <div class="card login-card p-4 shadow-lg">
+                <h1 class="card-title text-center mb-4 text-primary fw-bold">{% trans "Welcome Back" %}</h1>
+
+                <div class="card-body">
+
+                    {% get_providers as socialaccount_providers %}
+
+                    {# Social Login Block #}
+                    {% if socialaccount_providers %}
+                        <p class="text-center text-muted mb-4">
+                            {% blocktrans with site.name as site_name %}Sign in with a social account or continue below:{% endblocktrans %}
+                        </p>
+
+                        <div class="socialaccount_ballot mb-4">
+                            <ul class="socialaccount_providers list-unstyled text-center">
+                                {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+                            </ul>
+                            <div class="login-or my-3 text-center text-muted">{% trans 'or' %}</div>
+                        </div>
+
+                        {% include "socialaccount/snippets/login_extra.html" %}
+                    {% endif %}
+
+                    {# Login Form #}
+                    <form class="login" method="POST" action="{% url 'account_login' %}">
+                        {% csrf_token %}
+                        
+                        {% for field in form %}
+                            <div class="form-group mb-3">
+                                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                                <input type="{{ field.field.widget.input_type }}" 
+                                       name="{{ field.name }}" 
+                                       id="{{ field.id_for_label }}" 
+                                       class="form-control" 
+                                       value="{{ field.value|default_if_none:'' }}"
+                                       {% if field.field.required %}required{% endif %}>
+                                {% for error in field.errors %}
+                                    <small class="text-danger">{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+
+                        {% if redirect_field_value %}
+                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                        {% endif %}
+                        
+                        <div class="d-grid gap-2 mt-4">
+                            <button class="btn btn-success btn-lg" type="submit">{% trans "Sign In" %}</button>
+                        </div>
+                        
+                        <div class="text-center mt-3">
+                            <a class="text-muted small" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            
+            <div class="text-center mt-3">
+                <p class="text-muted">Need an account? <a href="{% url 'account_signup' %}" class="text-primary fw-semibold">Sign Up</a></p>
+            </div>
+        </div>
     </div>
-    {% block content %}
-    {% endblock %}
-    {% endblock %}
-    {% block extra_body %}
-    {% endblock %}
-  </body>
-</html>
+</div>
+{% endblock %}
