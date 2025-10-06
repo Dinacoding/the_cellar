@@ -1,0 +1,69 @@
+/*
+    Auth Styles for the Login/Signup Cards
+*/
+
+/* General styling for the card container */
+.login-card {
+    border-radius: 10px;
+    background-color: #ffffff; /* Light background */
+    border: 1px solid #e0e0e0;
+}
+
+/* Style for the "or" separator */
+.login-or {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #a0a0a0;
+    font-size: 0.9rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.login-or::before,
+.login-or::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.login-or:not(:empty)::before {
+    margin-right: .5em;
+}
+
+.login-or:not(:empty)::after {
+    margin-left: .5em;
+}
+
+/* Styling the form inputs */
+.login .form-control {
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Styling the primary action button */
+.login .btn-primary {
+    transition: background-color 0.3s ease;
+}
+
+/* Customizing social provider list to be horizontal */
+.socialaccount_providers {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column; /* Stack vertically for clean look */
+    gap: 10px;
+}
+
+.socialaccount_providers li a {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
