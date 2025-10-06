@@ -1,6 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
+
+
+from products.models import Wine, Category
+
+
+
 import stripe
 
 from products.models import Wine
@@ -9,7 +15,9 @@ from products.models import Wine
 def checkout(request):
     # Ensure Stripe is initialized (keys are loaded in settings.py)
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
-    # stripe_secret_key = settings.STRIPE_SECRET_KEY  # Not used, so commented out
+    stripe_secret_key = settings.STRIPE_SECRET_KEY
+
+    stripe.api_key = stripe_secret_key
 
     if request.method == 'POST':
         if 'cart' in request.session:
@@ -23,9 +31,10 @@ def checkout(request):
         return redirect('home') 
 
     else: # GET request: Load data and create Payment Intent
-        
-        current_cart = {}
-        cart = request.session.get('cart', {})        
+
+        cart_items = []
+        total = 0
+        cart = request.session.get('cart', {}) 
         # CART CHECK
         if not cart:
             messages.error(request, "There's nothing in your cart to checkout.")
@@ -34,14 +43,27 @@ def checkout(request):
         # BUILD CURRENT CART
         for item_id, quantity in cart.items():
             wine = get_object_or_404(Wine, pk=item_id)
-            current_cart[item_id] = {
-                'name': wine.name,
-                'price': float(wine.price),  # Convert Decimal to float for calculations
+            subtotal = float(wine.price) * quantity
+            total += subtotal
+
+            cart_items.append({
+                'wine': wine,
                 'quantity': quantity,
-            }
-        total = sum(item['price'] * item['quantity'] for item in current_cart.values())
+                'subtotal': subtotal,
+            })
+            
         total_cents = round(total * 100)
-        
+        current_cart = {
+            item_id: {
+                'wine': get_object_or_404(Wine, pk=item_id),
+                'quantity': quantity,
+                'subtotal': float(get_object_or_404(Wine, pk=item_id).price) * quantity
+            }
+            for item_id, quantity in cart.items()
+        }
+        # DEBUGGING OUTPUT
+        print(f"Current cart structure: {current_cart}")
+
         # STRIPE PAYMENT INTENT CREATION
         try:
             intent = stripe.PaymentIntent.create(

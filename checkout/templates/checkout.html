@@ -3,28 +3,49 @@
 
 {% block content %}
 <h1>Checkout</h1>
-<form method="post" action="{% url 'checkout' %}">
+
+<div class="order-summary-container">
+    <h2>Order Summary</h2>
+    {% for item in cart_items %}
+    <p>
+    {{ item.wine }} x {{ item.quantity }} @ £{{ item.wine.price }} = **£{{ item.subtotal|floatformat:2 }}**
+    </p>
+    {% endfor %}
+    <hr>
+    <h3>Grand Total: **£{{ total|floatformat:2 }}**</h3>
+</div>
+
+<form method="post" action="{% url 'checkout' %}" id="payment-form">
     {% csrf_token %}
+
     <div>
         <label for="address">Shipping Address:</label>
         <input type="text" id="address" name="address" required>
         <label for="phone">Phone Number:</label>
         <input type="tel" id="phone" name="phone" required>
     </div>
-    <div>
-        <label for="payment_method">Payment Method:</label>
-        <select id="payment_method" name="payment_method" required>
-            <option value="credit_card">Credit Card</option>
-            <option value="paypal">PayPal</option>
-        </select>
+
+    <div id="payment-element">
     </div>
-    <button type="submit">Complete Purchase</button>
+
+    <div id="card-errors" role="alert"></div>
+
+    <button type="submit" id="submit-button">Complete Purchase</button>
 </form>
 {% endblock %}
+
+{% block extra_js %}    
+<script src="{% static 'js/stripe.js' %}"></script>
+{% endblock %}
+
 {% block postloadjs %}
-<!-- Add any page-specific JavaScript here -->
     {{ block.super }}
+
+    <script src="https://js.stripe.com/v3/"></script>
+
     {{ stripe_public_key|json_script:"id_stripe_public_key" }}
     {{ client_secret|json_script:"id_client_secret" }}
     <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
+
 {% endblock %}
+
