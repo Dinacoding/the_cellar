@@ -4,9 +4,6 @@
 {% load account %}
 {% load static %} 
 
-{% load socialaccount_tags %} 
-
-
 {% block extra_css %}
     {{ block.super }} 
     <link rel="stylesheet" href="{% static 'css/auth_style.css' %}">
@@ -24,8 +21,7 @@
 
                 <div class="card-body">
 
-                    {% get_providers as socialaccount_providers %}
-
+                    {% get_providers as socialaccount_providers %}  
                     {# Social Login Block #}
                     {% if socialaccount_providers %}
                         <p class="text-center text-muted mb-4">
