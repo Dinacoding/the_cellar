@@ -11,7 +11,9 @@ import stripe
 
 from products.models import Wine
 # Create your views here.
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def checkout(request):
     # Ensure Stripe is initialized (keys are loaded in settings.py)
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
