@@ -12,35 +12,34 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 from pathlib import Path
-
-from django.conf import settings
-
-if os.path.isfile('env.py'):
-    import env
-
 from decouple import config, Csv
 import dj_database_url
-
-MY_ENVIRONMENT_VARIABLE = config('MY_ENVIRONMENT_VARIABLE', default='default_value')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+# Import env.py if it exists (for local development)
+if os.path.isfile('env.py'):
+    import env
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-zl^1!g2)mr)789$#b(wdf3fpzr2#*7nzppa7f^jked3&7$+yh_'
+SECRET_KEY = config('SECRET_KEY', default='django-insecure-zl^1!g2)mr)789$#b(wdf3fpzr2#*7nzppa7f^jked3&7$+yh_')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+# ALLOWED_HOSTS - Include Heroku domain
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=Csv())
+
+# Add CSRF trusted origins for Django 4.0+
+CSRF_TRUSTED_ORIGINS = config(
+    'CSRF_TRUSTED_ORIGINS', 
+    default='http://localhost:8000,http://127.0.0.1:8000',
+    cast=Csv()
+)
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -52,35 +51,29 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'home',  # Your home app
-    'products',  # Your products app
-    'shop', # Your shops app
+    'home',
+    'products',
+    'shop',
     'crispy_forms',
-    'crispy_bootstrap4',
+    'crispy_bootstrap5',  # Match this with CRISPY_TEMPLATE_PACK
     'checkout',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add whitenoise for static files
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
     'allauth.account.middleware.AccountMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
-
 ]
 
 ROOT_URLCONF = 'the_cellar.urls'
 
-# Add this for Bootstrap 4
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
-# Add this for Bootstrap 5
+# Crispy Forms Configuration
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 TEMPLATES = [
@@ -99,7 +92,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-            'builtins':[
+            'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
             ]
         },
@@ -109,15 +102,13 @@ TEMPLATES = [
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
-
     # `allauth` specific authentication methods, such as login by email
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 SITE_ID = 1
-# Email Backend Configuration
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# Email Hosting Configuration
+
+# Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = config('EMAIL_HOST', default='localhost')
 EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
@@ -125,53 +116,29 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='noreply@thecellar.com')
-
 EMAIL_SUBJECT_PREFIX = '[The Cellar] '
 EMAIL_TIMEOUT = 5
 
-
-
-# settings.py - Allauth Configuration
-
-# Ensure email is required and must be unique
+# Allauth Configuration
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-
-# Controls how users can log in: using either email OR username.
 ACCOUNT_LOGIN_METHODS = ['email', 'username'] 
-
-# Controls which fields appear in the signup form.
 ACCOUNT_SIGNUP_FIELDS = ['username', 'email*']
-
-# Minimum length for the username
 ACCOUNT_USERNAME_MIN_LENGTH = 5
-
-# Security setting: logs user out immediately when navigating to a logout URL.
 ACCOUNT_LOGOUT_ON_GET = True
-
-# Redirect URLs (Standard practice is to start with a slash)
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-# = {
- #   'default': {
-  #      'ENGINE': 'django.db.backends.sqlite3', # <-- THIS IS THE LOCAL FALLBACK
-   #     'NAME': BASE_DIR / 'db.sqlite3',
-    #}
-#}
-
+# Database Configuration
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL', default='sqlite:///' + str(BASE_DIR / 'db.sqlite3')),
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
 
-
 # Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -187,52 +154,45 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Required for Heroku
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+# Whitenoise configuration for efficient static file serving
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# Media files (User uploads)
+# WARNING: Heroku has ephemeral filesystem - uploaded files will be lost on dyno restart
+# You MUST use Cloudinary, AWS S3, or similar for production media files
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media/images'
+MEDIA_ROOT = BASE_DIR / 'media'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
-# settings.py
-
-import os
-from pathlib import Path
-
-if os.path.isfile('env.py'):
-    import env
-
-# 🎯 CRITICAL FIX: Use config() to reliably read the environment variables.
-from decouple import config, Csv
-
-MY_ENVIRONMENT_VARIABLE = config('MY_ENVIRONMENT_VARIABLE', default='default_value') # Keep this
-# ... (rest of settings file) ...
-
-
-# Stripe
+# Stripe Configuration
 FREE_DELIVERY_THRESHOLD = 50
 STANDARD_DELIVERY_PERCENTAGE = 10
 STRIPE_CURRENCY = 'gbp'
-
 STRIPE_PUBLIC_KEY = config('STRIPE_PUBLIC_KEY', default='') 
 STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY', default='')
+STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET', default='')  # Add this
 
+# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Security Settings for Production
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = 'DENY'
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
