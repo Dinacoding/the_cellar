@@ -1,12 +1,48 @@
-{% extends "account/base.html" %}
+{% extends "base.html" %}
 
 {% load i18n %}
+{% load account %}
+{% load static %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/auth_style.css' %}">
+{% endblock %}
+
+{% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
+
+{% extends "base.html" %}  {# <--- CRITICAL: EXTEND YOUR PROJECT'S BASE TEMPLATE #}
+
+{% load i18n %}
+{% load account %}
+{% load static %} 
+
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/auth_style.css' %}">
+{% endblock %}
 
 {% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
 
 {% block content %}
-    <h1>{% trans "Verify Your E-mail Address" %}</h1>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card p-4 shadow-lg text-center">
+                <h1 class="card-title mb-4 text-primary fw-bold">{% trans "Verify Your E-mail Address" %}</h1>
 
-    <p>{% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. If you do not see the verification e-mail in your main inbox, check your spam folder. Please contact us if you do not receive the verification e-mail within a few minutes.{% endblocktrans %}</p>
+                <p class="text-muted">
+                    {% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. If you do not see the verification e-mail in your main inbox, check your spam folder. Please contact us if you do not receive the verification e-mail within a few minutes.{% endblocktrans %}
+                </p>
+                
+                {# If you want to include a link to check or change email (standard allauth functionality) #}
+                {% url 'account_email' as email_url %}
+                <p class="mt-4">
+                    {% blocktrans %}Note: You can <a href="{{ email_url }}" class="text-primary fw-semibold">change your e-mail address</a> if needed.{% endblocktrans %}
+                </p>
 
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
