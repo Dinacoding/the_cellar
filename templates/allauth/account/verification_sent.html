@@ -11,19 +11,6 @@
 
 {% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
 
-{% extends "base.html" %}  {# <--- CRITICAL: EXTEND YOUR PROJECT'S BASE TEMPLATE #}
-
-{% load i18n %}
-{% load account %}
-{% load static %} 
-
-{% block extra_css %}
-    {{ block.super }}
-    <link rel="stylesheet" href="{% static 'css/auth_style.css' %}">
-{% endblock %}
-
-{% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
-
 {% block content %}
 <div class="container my-5">
     <div class="row justify-content-center">

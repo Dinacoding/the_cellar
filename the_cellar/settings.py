@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 
+from django.conf import settings
+
 if os.path.isfile('env.py'):
     import env
 
@@ -115,19 +117,28 @@ SITE_ID = 1
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+# settings.py - Allauth Configuration
+
+# Ensure email is required and must be unique
+ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
-ACCOUNT_SIGNUP_FIELDS = ['username', 'email']
+# Controls how users can log in: using either email OR username.
+ACCOUNT_LOGIN_METHODS = ['email', 'username'] 
 
-ACCOUNT_AUTHENTICATION_METHOD = 'username_email' 
+# Controls which fields appear in the signup form.
+ACCOUNT_SIGNUP_FIELDS = ['username', 'email*']
 
+# Minimum length for the username
 ACCOUNT_USERNAME_MIN_LENGTH = 5
 
-LOGIN_URL = '/accounts/login/'
+# Security setting: logs user out immediately when navigating to a logout URL.
+ACCOUNT_LOGOUT_ON_GET = True
+
+# Redirect URLs (Standard practice is to start with a slash)
 LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 
-
-WSGI_APPLICATION = 'the_cellar.wsgi.application'
 
 
 # Database
