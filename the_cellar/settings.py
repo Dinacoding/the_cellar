@@ -33,7 +33,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-zl^1!g2)mr)789$#b(wdf3fpzr2#*7nzppa7f^jked3&7$+yh_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
@@ -153,15 +153,18 @@ LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 
 
-
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# = {
+ #   'default': {
+  #      'ENGINE': 'django.db.backends.sqlite3', # <-- THIS IS THE LOCAL FALLBACK
+   #     'NAME': BASE_DIR / 'db.sqlite3',
+    #}
+#}
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
 
 
