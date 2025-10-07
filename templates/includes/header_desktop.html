@@ -42,14 +42,13 @@
             <a href=""
                 class="nav-link {% if grand_total_items %}text-success{% else %}text-black{% endif %} ">
                 <div class="text-center">
-                    <div><i class="bi bi-cart-fill"></i></div>
-                    <p class="m-0">
+                    <div><a href="{% url 'view_cart' %}" target="_blank" rel="noopener noreferrer"><i class="bi bi-cart-fill"></i></a></div>
                         {% if grand_total_items %}
                         £{{ grand_total|floatformat:2 }}
                         {% else %}
                         £0.00
                         {% endif %}
-                    </p>
+                    </div>
                 </div>
             </a>
         </li>
