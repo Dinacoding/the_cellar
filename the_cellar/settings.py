@@ -19,6 +19,7 @@ if os.path.isfile('env.py'):
     import env
 
 from decouple import config, Csv
+import dj_database_url
 
 MY_ENVIRONMENT_VARIABLE = config('MY_ENVIRONMENT_VARIABLE', default='default_value')
 
