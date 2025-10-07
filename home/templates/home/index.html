@@ -19,6 +19,13 @@
         <div class="row h-100">
             <div class="col-7 col-md-8">
                 <h1>Welcome to The Cellar</h1>
+                {% if request.user.is_authenticated %}
+                <p>Hello {{ request.user.username }}</p>
+                <p class="m-0">Enjoy free delivery on orders over £50!</p>
+                {% else %}
+                <p class="m-0">Please log in to enjoy our services.</p>
+                {% endif %}
+                <p></p>
             </div>
         </div>
         <div class="my-5">
