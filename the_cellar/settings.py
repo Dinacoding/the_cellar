@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'home',
     'products',
     'shop',
@@ -58,6 +59,19 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',  # Match this with CRISPY_TEMPLATE_PACK
     'checkout',
 ]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For this version, just define the scope (what data you want)
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -85,6 +99,8 @@ TEMPLATES = [
             BASE_DIR / 'templates' / 'allauth',
             BASE_DIR / 'templates' / 'product',
             BASE_DIR / 'templates' / 'home',
+            BASE_DIR / 'templates' / 'shop',
+            BASE_DIR / 'templates' / 'checkout',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
