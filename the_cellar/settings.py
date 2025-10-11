@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'summernote',  # For rich text editing in admin
     'home',
     'products',
     'shop',
