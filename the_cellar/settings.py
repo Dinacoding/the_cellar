@@ -29,7 +29,7 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-zl^1!g2)mr)789$#b(wdf
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 # ALLOWED_HOSTS - Include Heroku domain
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=Csv())
+ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
 
 # Add CSRF trusted origins for Django 4.0+
 CSRF_TRUSTED_ORIGINS = config(
@@ -75,6 +75,7 @@ ROOT_URLCONF = 'the_cellar.urls'
 
 # Crispy Forms Configuration
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 TEMPLATES = [
     {
