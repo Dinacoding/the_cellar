@@ -26,17 +26,24 @@ if os.path.isfile('env.py'):
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-zl^1!g2)mr)789$#b(wdf3fpzr2#*7nzppa7f^jked3&7$+yh_')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG  = True
 
 # ALLOWED_HOSTS - Include Heroku domain
-ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1', 'localhost']
 
 # Add CSRF trusted origins for Django 4.0+
 CSRF_TRUSTED_ORIGINS = config(
-    'CSRF_TRUSTED_ORIGINS', 
-    default='http://localhost:8000,http://127.0.0.1:8000',
+    'CSRF_TRUSTED_ORIGINS',
+    default=(
+        'http://localhost:8000,'
+        'http://127.0.0.1:8000,'
+        'https://localhost:8000,'
+        'https://127.0.0.1:8000,'
+        'https://the-cellar-2024.herokuapp.com'
+    ),
     cast=Csv()
 )
+
 
 
 # Application definition
@@ -51,7 +58,6 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
     'home',
     'products',
     'shop',
