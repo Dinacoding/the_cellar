@@ -29,7 +29,7 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-zl^1!g2)mr)789$#b(wdf
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 # ALLOWED_HOSTS - Include Heroku domain
-ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
 
 # Add CSRF trusted origins for Django 4.0+
 CSRF_TRUSTED_ORIGINS = config(
@@ -100,7 +100,8 @@ TEMPLATES = [
             BASE_DIR / 'templates' / 'product',
             BASE_DIR / 'templates' / 'home',
             BASE_DIR / 'templates' / 'shop',
-            BASE_DIR / 'templates' / 'checkout',
+            BASE_DIR / 'templates' / 'checkout',    
+            
         ],
         'APP_DIRS': True,
         'OPTIONS': {
