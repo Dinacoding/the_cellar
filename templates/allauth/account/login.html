@@ -12,9 +12,31 @@
         </h1>
 
         <div class="card-body">
+          <!-- Social Login Section -->
+          <div class="mb-4">
+            <a href="{% provider_login_url 'google' %}" class="btn btn-outline-primary w-100 social-login-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="12" cy="12" r="10"></circle>
+              </svg>
+              {% trans "Sign in with Google" %}
+            </a>
+            
+            <a href="{% provider_login_url 'apple' %}" class="btn btn-outline-dark w-100 social-login-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.3-3.14-2.53C4.25 17.12 2.5 12.63 4.25 9.64c.87-1.35 2.43-2.2 4.15-2.16 1.29.04 2.29.87 3.44.87 1.11 0 1.77-.67 3.64-.72 1.98-.05 3.87.5 4.84 1.6-1.5.92-2.43 2.4-2.64 4.09-.2 1.57.3 3.72 1.97 4.5-.49.15-.97.25-1.5.25-1.11 0-2.08-.6-2.87-1.44z"></path>
+              </svg>
+              {% trans "Sign in with Apple" %}
+            </a>
+          </div>
+
+          <div class="divider">
+            <span>{% trans "or" %}</span>
+          </div>
+
+          <!-- Email/Password Login Section -->
           {% url 'account_signup' as signup_url %}
           <p class="text-center text-muted mb-4">
-            {% blocktrans %}Log in with your existing account or
+            {% blocktrans %}Log in with your email or
             <a href="{{ signup_url }}" class="text-primary fw-semibold"
               >sign up</a
             >
