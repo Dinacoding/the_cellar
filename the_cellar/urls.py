@@ -25,5 +25,6 @@ urlpatterns = [
     path('products/', include('products.urls')),
     path('checkout/', include('checkout.urls')), 
     path('', include('shop.urls')),  # Ensure shop URLs are included
+    path('summernote/', include('django_summernote.urls')),  # For summernote
 
 ]
