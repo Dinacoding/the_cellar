@@ -62,8 +62,10 @@ INSTALLED_APPS = [
     'products',
     'shop',
     'crispy_forms',
-    'crispy_bootstrap5',  # Match this with CRISPY_TEMPLATE_PACK
+    'crispy_bootstrap5',  
     'checkout',
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -220,3 +222,11 @@ if not DEBUG:
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
+
+
+# Cloudinary Configuration for Media Files
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default=''),
+    'API_KEY': config('CLOUDINARY_API_KEY', default=''),
+    'API_SECRET': config('CLOUDINARY_API_SECRET', default=''),
+}
