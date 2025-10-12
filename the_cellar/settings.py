@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'checkout',
     'cloudinary_storage',
     'cloudinary',
+    
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -197,8 +198,22 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Media files (User uploads)
 # WARNING: Heroku has ephemeral filesystem - uploaded files will be lost on dyno restart
 # You MUST use Cloudinary, AWS S3, or similar for production media files
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+
+if not DEBUG:
+    # Produção: Usar Cloudinary
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default=''),
+        'API_KEY': config('CLOUDINARY_API_KEY', default=''),
+        'API_SECRET': config('CLOUDINARY_API_SECRET', default=''),
+    }
+else:
+    # Desenvolvimento local: Usar ficheiros locais
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = BASE_DIR / 'media'
+
+
+
 
 # Stripe Configuration
 FREE_DELIVERY_THRESHOLD = 50
@@ -223,10 +238,3 @@ if not DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
 
-
-# Cloudinary Configuration for Media Files
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default=''),
-    'API_KEY': config('CLOUDINARY_API_KEY', default=''),
-    'API_SECRET': config('CLOUDINARY_API_SECRET', default=''),
-}

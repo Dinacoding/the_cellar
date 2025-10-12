@@ -1,28 +1,47 @@
 import os
-import shutil
+import django
+from pathlib import Path
 
-def migrate_media(src_dir, dest_dir):
-    """
-    Migrates all files and folders from src_dir to dest_dir.
-    """
-    if not os.path.exists(src_dir):
-        print(f"Source directory '{src_dir}' does not exist.")
+# Setup Django
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'the_cellar.settings')
+django.setup()
+
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+
+def migrate_images_to_cloudinary():
+    """Upload all images from media/ folder to Cloudinary"""
+    
+    media_root = Path('media')
+    
+    if not media_root.exists():
+        print(" No media folder found")
         return
+    
+    count = 0
+    errors = 0
+    
+    # Walk through all files in media folder
+    for root, dirs, files in os.walk(media_root):
+        for filename in files:
+            local_path = os.path.join(root, filename)
+            relative_path = os.path.relpath(local_path, media_root)
+            
+            try:
+                with open(local_path, 'rb') as f:
+                    file_content = ContentFile(f.read())
+                    
+                    # Upload to Cloudinary
+                    new_path = default_storage.save(relative_path, file_content)
+                    
+                    count += 1
+                    print(f'✓ Uploaded: {relative_path} -> {new_path}')
+                    
+            except Exception as e:
+                print(f'✗ Error uploading {relative_path}: {str(e)}')
+                errors += 1
+    
+    print(f'\n✓ Complete: {count} files uploaded, {errors} errors')
 
-    if not os.path.exists(dest_dir):
-        os.makedirs(dest_dir)
-
-    for item in os.listdir(src_dir):
-        src_path = os.path.join(src_dir, item)
-        dest_path = os.path.join(dest_dir, item)
-        if os.path.isdir(src_path):
-            shutil.copytree(src_path, dest_path, dirs_exist_ok=True)
-        else:
-            shutil.copy2(src_path, dest_path)
-        print(f"Migrated: {src_path} -> {dest_path}")
-
-if __name__ == "__main__":
-    # Example usage: update these paths as needed
-    source_media_dir = "path/to/source/media"
-    destination_media_dir = "path/to/destination/media"
-    migrate_media(source_media_dir, destination_media_dir)
+if __name__ == '__main__':
+    migrate_images_to_cloudinary()

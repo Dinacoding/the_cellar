@@ -19,7 +19,7 @@ class Wine(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, related_name='wines', null=True, blank=True)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(upload_to='images/', blank=True, null=True) 
     rating = models.FloatField(null=True, blank=True)
     year = models.PositiveIntegerField(null=True, blank=True)
 
