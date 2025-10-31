@@ -153,7 +153,6 @@ if os.environ.get('DYNO'):
     EMAIL_HOST_USER = 'apikey'
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
     DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@thecellar.com')
-    EMAIL_SUBJECT_PREFIX = '[The Cellar] '
     EMAIL_TIMEOUT = 10
 else:
     # Local Development - Console backend
@@ -162,18 +161,22 @@ else:
     EMAIL_SUBJECT_PREFIX = '[The Cellar] '
 
 # Allauth Configuration
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
-ACCOUNT_USERNAME_REQUIRED = False
+# Allauth Configuration (Updated for Allauth v0.50+)
+# Use new login methods configuration
+ACCOUNT_LOGIN_METHODS = {'email'}  # Only email, no username
+
+ACCOUNT_SIGNUP_FIELDS = ['email*']  
+
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
 ACCOUNT_LOGIN_BY_CODE_ENABLED = True
 ACCOUNT_LOGIN_BY_CODE_TIMEOUT = 180
+
 ACCOUNT_USERNAME_MIN_LENGTH = 5
 ACCOUNT_LOGOUT_ON_GET = True
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
-
-# Database Configuration
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True  
 DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL', default='sqlite:///' + str(BASE_DIR / 'db.sqlite3')),
