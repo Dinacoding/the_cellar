@@ -9,11 +9,18 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+from dotenv import load_dotenv
 import os
 from pathlib import Path
 from decouple import config, Csv
 import dj_database_url
+
+load_dotenv()
+
+# At the top of settings.py
+
+
+load_dotenv()  # Load .env file
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -135,22 +142,32 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
+
 # Email Configuration
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = config('EMAIL_HOST', default='localhost')
-EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
-EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool) 
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='noreply@thecellar.com')
-EMAIL_SUBJECT_PREFIX = '[The Cellar] '
-EMAIL_TIMEOUT = 5
+if os.environ.get('DYNO'):
+    # Production (Heroku) - Use SendGrid
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.sendgrid.net'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_USER = 'apikey'
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+    DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@thecellar.com')
+    EMAIL_SUBJECT_PREFIX = '[The Cellar] '
+    EMAIL_TIMEOUT = 10
+else:
+    # Local Development - Console backend
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='dinarte.pumbas@icloud.com')
+    EMAIL_SUBJECT_PREFIX = '[The Cellar] '
 
 # Allauth Configuration
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_LOGIN_METHODS = ['email', 'username'] 
-ACCOUNT_SIGNUP_FIELDS = ['username', 'email*']
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_LOGIN_BY_CODE_ENABLED = True
+ACCOUNT_LOGIN_BY_CODE_TIMEOUT = 180
 ACCOUNT_USERNAME_MIN_LENGTH = 5
 ACCOUNT_LOGOUT_ON_GET = True
 LOGIN_REDIRECT_URL = '/'
@@ -238,3 +255,6 @@ if not DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
 
+if not os.environ.get('DYNO'):
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    print(">>> EMAIL BACKEND FORCED TO CONSOLE <<<")
