@@ -1,1 +1,1 @@
-web gunicorn the_cellar.wsgi --log-file -
+web gunicorn the_cellar.wsgi 
